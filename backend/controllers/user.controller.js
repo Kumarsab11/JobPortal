@@ -11,6 +11,7 @@ export const register = async (req, res) => {
         success: false,
       });
     }
+    const file = req.file;
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({

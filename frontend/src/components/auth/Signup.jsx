@@ -1,8 +1,8 @@
-import React, { useDebugValue, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../shared/Navbar";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { RadioGroup } from "../ui/radio-group";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { USER_API_END_POINT } from "@/utils/constant";
@@ -21,9 +21,9 @@ const Signup = () => {
     role: "",
     file: "",
   });
-  const { loading } = useSelector((store) => store.auth);
+  // const { loading } = useSelector((store) => store.auth);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -43,11 +43,12 @@ const Signup = () => {
     }
 
     try {
-      dispatch(setLoading(true));
+      //     dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
+      //console.log(response.data);
       if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message);
@@ -55,8 +56,8 @@ const Signup = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
-    } finally {
-      dispatch(setLoading(false));
+      //   } finally {
+      //     dispatch(setLoading(false));
     }
   };
 
@@ -92,7 +93,7 @@ const Signup = () => {
           <div className="my-2">
             <Label>Phone Number</Label>
             <Input
-              type="number"
+              type="text"
               value={input.phoneNumber}
               name="phoneNumber"
               onChange={changeEventHandler}
@@ -103,16 +104,15 @@ const Signup = () => {
             <Label>Password</Label>
             <Input
               type="password"
-              alue={input.password}
+              value={input.password}
               name="password"
               onChange={changeEventHandler}
-              placeholder="abcd@gmail.com"
+              placeholder="password"
             />
           </div>
           <div className="flex items-center justify-between">
             <RadioGroup className="flex items-center gap-4 my-5">
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="default" id="r1" />
                 <Input
                   type="radio"
                   name="role"
@@ -124,7 +124,6 @@ const Signup = () => {
                 <Label htmlFor="r1">Student</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="comfortable" id="r2" />
                 <Input
                   type="radio"
                   name="role"
@@ -146,15 +145,15 @@ const Signup = () => {
               />
             </div>
           </div>
-          {loading ? (
-            <Button className="w-full my-4">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait{" "}
-            </Button>
-          ) : (
-            <Button type="submit" className="w-full my-4">
-              Sign Up
-            </Button>
-          )}
+
+          {/* <Button className="w-full my-4">
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait{" "}
+          </Button> */}
+
+          <Button type="submit" className="w-full my-4">
+            Sign Up
+          </Button>
+
           <span className="text-sm">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-600">

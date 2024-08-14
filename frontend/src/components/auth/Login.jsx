@@ -18,17 +18,18 @@ const Login = () => {
     password: "",
     role: "",
   });
-  const { loading } = useSelector((store) => store.auth);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  //const { loading } = useSelector((store) => store.auth);
+  //const navigate = useNavigate();
+  //const dispatch = useDispatch();
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     try {
-      dispatch(setLoading(true));
+      //     dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
         headers: {
           "Content-Type": "application/json",
@@ -36,15 +37,15 @@ const Login = () => {
         withCredentials: true,
       });
       if (res.data.success) {
-        dispatch(setUser(res.data.user));
+        //       dispatch(setUser(res.data.user));
         navigate("/");
         toast.success(res.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
-    } finally {
-      dispatch(setLoading(false));
+           toast.error(error.response.data.message);
+      //   } finally {
+      //     dispatch(setLoading(false));
     }
   };
 
@@ -65,7 +66,7 @@ const Login = () => {
               value={input.email}
               name="email"
               onChange={changeEventHandler}
-              placeholder="user"
+              placeholder="abc@gmail.com"
             />
           </div>
 
@@ -76,13 +77,12 @@ const Login = () => {
               value={input.password}
               name="password"
               onChange={changeEventHandler}
-              placeholder="abcd@gmail.com"
+              placeholder="password"
             />
           </div>
           <div className="flex items-center justify-between">
             <RadioGroup className="flex items-center gap-4 my-5">
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="default" id="r1" />
                 <Input
                   type="radio"
                   name="role"
@@ -93,7 +93,6 @@ const Login = () => {
                 <Label htmlFor="r1">Student</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="comfortable" id="r2" />
                 <Input
                   type="radio"
                   name="role"
@@ -105,15 +104,15 @@ const Login = () => {
               </div>
             </RadioGroup>
           </div>
-          {loading ? (
+          {/* {loading ? (
             <Button className="w-full my-4">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait{" "}
             </Button>
-          ) : (
-            <Button type="submit" className="w-full my-4">
-              Login
-            </Button>
-          )}
+          ) : ( */}
+          <Button type="submit" className="w-full my-4">
+            Login
+          </Button>
+          {/* )} */}
 
           <span className="text-sm">
             Don't have an account?{" "}
